@@ -16,7 +16,7 @@ class ThermometerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
-      width: height * 0.4, // Aspect ratio
+      width: height * 0.4,
       child: CustomPaint(
         painter: _ThermometerPainter(temperature: temperature, color: color),
       ),
@@ -49,59 +49,41 @@ class _ThermometerPainter extends CustomPainter {
     final double stemWidth = size.width * 0.5;
     final double stemHeight = size.height - bulbRadius * 2;
 
-    // Draw Background (White)
-    // Bulb
     canvas.drawCircle(
       Offset(size.width / 2, size.height - bulbRadius),
       bulbRadius - 1,
       bgPaint,
     );
-    // Stem
+
     final RRect stemRect = RRect.fromRectAndRadius(
       Rect.fromLTWH(
         (size.width - stemWidth) / 2,
         0,
         stemWidth,
-        stemHeight + bulbRadius, // Overlap slightly
+        stemHeight + bulbRadius,
       ),
       Radius.circular(stemWidth / 2),
     );
     canvas.drawRRect(stemRect, bgPaint);
-
-    // Calculate Fill Height based on temperature (0 to 50 scale for demo)
-    // Min temp 0 -> Fill 0% of stem
-    // Max temp 50 -> Fill 100% of stem
     final double clampedTemp = temperature.clamp(0, 50);
     final double fillPercentage = clampedTemp / 50;
     final double fillHeight = stemHeight * fillPercentage;
-
-    // Draw Fill
-    // Bulb Fill
     canvas.drawCircle(
       Offset(size.width / 2, size.height - bulbRadius),
-      bulbRadius - 3, // Slightly smaller to keep border visible
+      bulbRadius - 3,
       fillPaint,
     );
-
-    // Stem Fill
     final Rect fillRect = Rect.fromLTWH(
-      (size.width - stemWidth) / 2 + 2, // Inset
+      (size.width - stemWidth) / 2 + 2,
       stemHeight - fillHeight,
-      stemWidth - 4, // Inset
-      fillHeight + bulbRadius, // Connect to bulb
+      stemWidth - 4,
+      fillHeight + bulbRadius,
     );
     canvas.drawRRect(
       RRect.fromRectAndRadius(fillRect, Radius.circular(stemWidth / 2)),
       fillPaint,
     );
-
-    // Draw Border
-    // Stem Border
     canvas.drawRRect(stemRect, borderPaint);
-    // Bulb Border (draw arc to merge with stem?)
-    // Simpler: Just draw the shape again with stroke
-
-    // To draw a nice merged shape, we can use Path
     final Path borderPath = Path();
     borderPath.addRRect(stemRect);
     borderPath.addOval(
@@ -111,8 +93,6 @@ class _ThermometerPainter extends CustomPainter {
       ),
     );
     canvas.drawPath(borderPath, borderPaint);
-
-    // Draw ticks
     final Paint tickPaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 1;

@@ -7,7 +7,8 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: const Color(0xFF0099FF),
       primary: const Color(0xFF0099FF),
-      background: const Color(0xFFF5F5F5),
+
+      surface: const Color(0xFFD9E4F1),
     ),
     scaffoldBackgroundColor: const Color(0xFFF5F5F5),
     textTheme: GoogleFonts.interTextTheme(),

@@ -21,7 +21,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // Simulate splash delay
     Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         setState(() {
@@ -40,7 +39,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   void _handleLogin() {
     if (_formKey.currentState!.validate()) {
-      // Navigate to dashboard
       context.go('/dashboard');
     }
   }
@@ -54,55 +52,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       backgroundColor: theme.colorScheme.primary,
       body: Stack(
         children: [
-          // Logo Animation
           AnimatedPositioned(
             duration: const Duration(milliseconds: 800),
             curve: Curves.easeInOut,
-            top: _showLogin ? size.height * 0.15 : size.height * 0.4,
+            top: _showLogin ? size.height * 0.005 : size.height * 0.05,
             left: 0,
             right: 0,
+            height: size.height * 0.62,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(
-                  AppAssets.logo,
-                  height: 100,
-                  width: 100,
-                  // colorFilter: const ColorFilter.mode(
-                  //   Colors.white,
-                  //   BlendMode.srcIn,
-                  // ),
-                ),
+                Image.asset(AppAssets.logo, height: 250, width: 250),
                 const SizedBox(height: 16),
-                const Text(
-                  'SCUBE',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-                const Text(
-                  'Control & Monitoring System',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
               ],
             ),
           ),
 
-          // Login Card
           AnimatedPositioned(
             duration: const Duration(milliseconds: 800),
             curve: Curves.easeInOut,
-            bottom: _showLogin ? 0 : -size.height * 0.6,
+            bottom: _showLogin ? 0 : -size.height * 0.62,
             left: 0,
             right: 0,
-            height: size.height * 0.55,
+            height: size.height * 0.62,
             child: Container(
               decoration: const BoxDecoration(
                 color: Colors.white,

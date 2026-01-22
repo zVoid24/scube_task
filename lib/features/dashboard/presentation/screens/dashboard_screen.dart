@@ -14,31 +14,49 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFD9E4F1),
       appBar: AppBar(
+        title: const Text('1st Page'),
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {},
         ),
-        title: const Text(
-          '1st Page',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_none, color: Colors.red),
-            onPressed: () {},
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              IconButton(
+                icon: Image.asset(
+                  AppAssets.notificationIcon,
+                  height: 24,
+                  width: 24,
+                ),
+                onPressed: () {},
+              ),
+              Positioned(
+                top: 12,
+                right: 12,
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ],
           ),
+          const SizedBox(width: 8),
         ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Navigation Button
             Material(
               color: Colors.transparent,
               child: InkWell(
@@ -55,7 +73,7 @@ class DashboardScreen extends ConsumerWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF00C2FF),
+                    color: const Color(0xFF00C0E8),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Center(
@@ -72,7 +90,6 @@ class DashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
 
-            // Metrics Grid
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -120,6 +137,9 @@ class DashboardScreen extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 16),
+            const SizedBox(height: 16),
+            const EnvironmentCard(),
+            const SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -134,6 +154,12 @@ class DashboardScreen extends ConsumerWidget {
               ),
               child: Column(
                 children: [
+                  const DataListItem(
+                    label: '',
+                    value1: 'Yesterday\'s Data',
+                    value2: 'Today\'s Data',
+                    isEven: false,
+                  ),
                   const Divider(height: 1),
                   const DataListItem(
                     label: 'AC Max Power',
@@ -169,10 +195,10 @@ class DashboardScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
-            // 3rd Module: Total Values
+            const SizedBox(height: 16),
             const TotalValuesModule(),
             const SizedBox(height: 16),
-            // 4th Module: Inverter List
+            const SizedBox(height: 16),
             const InverterListModule(),
             const SizedBox(height: 16),
           ],

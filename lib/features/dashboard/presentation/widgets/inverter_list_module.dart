@@ -121,9 +121,7 @@ class InverterListModule extends StatelessWidget {
     return Row(
       children: [
         Container(
-          //padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            //color: color,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Image.asset(iconPath, height: 40, width: 40, scale: 0.4),

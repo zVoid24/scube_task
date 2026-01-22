@@ -35,11 +35,6 @@ class _EnvironmentCardState extends State<EnvironmentCard> {
 
   @override
   Widget build(BuildContext context) {
-    // Dynamic Logic based on time (Simulating the screenshot scenarios)
-    // 11:00 AM - 12:00 PM -> 17°C, Blue, CloudSun
-    // 12:00 PM - 01:00 PM -> 30°C, Red, Sun
-    // 02:30 PM - 03:30 PM -> 19°C, Teal, Moon (Simulated for evening/night)
-
     final double timeInHours = _currentTime.hour + _currentTime.minute / 60.0;
 
     String tempText;
@@ -48,27 +43,21 @@ class _EnvironmentCardState extends State<EnvironmentCard> {
     String weatherIcon;
 
     if (timeInHours >= 11.0 && timeInHours < 12.0) {
-      // 11:00 AM - 12:00 PM: 17°C, Blue, CloudSun
       tempText = '17°C';
       temperature = 17;
       tempColor = const Color(0xFF0099FF);
       weatherIcon = AppAssets.cloudSun;
     } else if (timeInHours >= 12.0 && timeInHours < 13.0) {
-      // 12:00 PM - 01:00 PM: 30°C, Red, Sun
       tempText = '30°C';
       temperature = 30;
       tempColor = Colors.red;
       weatherIcon = AppAssets.sun;
     } else if (timeInHours >= 14.5 && timeInHours < 15.5) {
-      // 02:30 PM - 03:30 PM: 19°C, Teal, Moon
       tempText = '19°C';
       temperature = 19;
       tempColor = Colors.teal;
       weatherIcon = AppAssets.moon;
     } else {
-      // Default / Fallback (Outside specified ranges)
-      // Defaulting to Morning state or keeping last known state could be options.
-      // For now, let's default to Morning state to ensure valid values are always present.
       tempText = '17°C';
       temperature = 17;
       tempColor = const Color(0xFF0099FF);
@@ -81,6 +70,7 @@ class _EnvironmentCardState extends State<EnvironmentCard> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.05),
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -89,7 +79,6 @@ class _EnvironmentCardState extends State<EnvironmentCard> {
       ),
       child: Row(
         children: [
-          // Left Side (White)
           Expanded(
             flex: 2,
             child: Container(
@@ -137,7 +126,6 @@ class _EnvironmentCardState extends State<EnvironmentCard> {
               ),
             ),
           ),
-          // Right Side (Gradient)
           Expanded(
             flex: 3,
             child: Container(

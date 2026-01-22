@@ -44,16 +44,16 @@ dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/launcher_icon.png"
+  image_path: "assets/icons/logo.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
-    image_path: "assets/icons/launcher_icon.png"
+    image_path: "assets/icons/logo.png"
     background_color: "#hex_code"
     theme_color: "#hex_code"
   windows:
     generate: true
-    image_path: "assets/icons/launcher_icon.png"
+    image_path: "assets/icons/logo.png"
     icon_size: 48 # min:48, max:256, default: 48
 
 dev_dependencies:
@@ -83,7 +83,10 @@ flutter:
     - assets/icons/summary_icons/
     - assets/icons/temperature_card_icons/
     - assets/icons/fourth_module/
+    - assets/icons/second_summary/
+    - assets/icons/second_data_view/
     - assets/images/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

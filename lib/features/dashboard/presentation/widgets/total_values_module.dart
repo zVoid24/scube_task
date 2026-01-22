@@ -8,7 +8,6 @@ class TotalValuesModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Row 1: Total Num of PV Module (Full Width)
         _buildCard(
           iconPath: AppAssets.totalPvModule,
           title: 'Total Num of PV Module',
@@ -16,7 +15,6 @@ class TotalValuesModule extends StatelessWidget {
           isFullWidth: true,
         ),
         const SizedBox(height: 8),
-        // Row 2: Total AC Capacity | Total DC Capacity
         Row(
           children: [
             Expanded(
@@ -37,7 +35,6 @@ class TotalValuesModule extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        // Row 3: Date of Commissioning | Number of Inverter
         Row(
           children: [
             Expanded(
@@ -58,7 +55,6 @@ class TotalValuesModule extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        // Row 4: Total AC Capacity | Total DC Capacity (Duplicate as per screenshot)
         Row(
           children: [
             Expanded(
@@ -88,6 +84,8 @@ class TotalValuesModule extends StatelessWidget {
     required String value,
     bool isFullWidth = false,
   }) {
+    final bool needsStyling = iconPath != AppAssets.totalAcCapacity;
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -95,6 +93,7 @@ class TotalValuesModule extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.05),
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -103,8 +102,22 @@ class TotalValuesModule extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(iconPath, height: 32, width: 32),
+          if (needsStyling)
+            Container(
+              height: 32,
+              width: 32,
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: const Color(0xFFE4F2FF),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Image.asset(iconPath, color: const Color(0xFF0096FC)),
+            )
+          else
+            Image.asset(iconPath, height: 32, width: 32, scale: 0.4),
+
           const SizedBox(width: 12),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +125,7 @@ class TotalValuesModule extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(color: Colors.grey[700], fontSize: 12),
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4),
@@ -122,7 +135,7 @@ class TotalValuesModule extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

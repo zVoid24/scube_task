@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scube/core/router/app_router.dart';
+import 'package:scube/core/constants/app_assets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class SecondPageScreen extends StatelessWidget {
+class SecondPageScreen extends StatefulWidget {
   const SecondPageScreen({super.key});
+
+  @override
+  State<SecondPageScreen> createState() => _SecondPageScreenState();
+}
+
+class _SecondPageScreenState extends State<SecondPageScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE8EEF6), // Light blue-grey background
+      backgroundColor: const Color(0xFFD9E4F1),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -30,9 +45,10 @@ class SecondPageScreen extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               IconButton(
-                icon: const Icon(
-                  Icons.notifications_outlined,
-                  color: Colors.black,
+                icon: Image.asset(
+                  AppAssets.notificationIcon,
+                  height: 24,
+                  width: 24,
                 ),
                 onPressed: () {},
               ),
@@ -58,13 +74,12 @@ class SecondPageScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Navigation Button (1st Page Navigate)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => context.pop(),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B4D8), // Cyan/Blue
+                    backgroundColor: const Color(0xFF00C0E8),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -93,8 +108,6 @@ class SecondPageScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Main Card (Summary / SLD / Data)
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -103,7 +116,6 @@ class SecondPageScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    // Tabs
                     Container(
                       decoration: BoxDecoration(
                         border: Border(
@@ -119,8 +131,6 @@ class SecondPageScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-
-                    // Electricity Title
                     Text(
                       'Electricity',
                       style: TextStyle(
@@ -132,8 +142,6 @@ class SecondPageScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     const Divider(indent: 16, endIndent: 16),
                     const SizedBox(height: 16),
-
-                    // Circular Chart
                     SizedBox(
                       height: 180,
                       width: 180,
@@ -144,14 +152,12 @@ class SecondPageScreen extends StatelessWidget {
                             height: 150,
                             width: 150,
                             child: CircularProgressIndicator(
-                              value: 0.75, // Approx from screenshot
+                              value: 0.75,
                               strokeWidth: 20,
-                              backgroundColor: const Color(
-                                0xFFE0F2FE,
-                              ), // Light Blue
+                              backgroundColor: const Color(0xFFE0F2FE),
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                 Color(0xFF0099FF),
-                              ), // Blue
+                              ),
                             ),
                           ),
                           Column(
@@ -180,7 +186,8 @@ class SecondPageScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Source / Load Toggle
+                    const SizedBox(height: 24),
+
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 32),
                       decoration: BoxDecoration(
@@ -227,63 +234,102 @@ class SecondPageScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     const Divider(height: 1),
 
-                    // List Items
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          _buildListItem(
-                            title: 'Data View',
-                            status: '(Active)',
-                            statusColor: Colors.blue,
-                            data1: '55505.63',
-                            data2: '58805.63',
-                            iconColor: Colors.blue.shade200,
-                          ),
-                          const SizedBox(height: 12),
-                          _buildListItem(
-                            title: 'Data Type 2',
-                            status: '(Active)',
-                            statusColor: Colors.blue,
-                            data1: '55505.63',
-                            data2: '58805.63',
-                            iconColor: Colors.orange.shade200,
-                          ),
-                          const SizedBox(height: 12),
-                          _buildListItem(
-                            title: 'Data Type 3',
-                            status: '(Inactive)',
-                            statusColor: Colors.red,
-                            data1: '55505.63',
-                            data2: '58805.63',
-                            iconColor: Colors.blue.shade200,
-                          ),
-                        ],
+                    const Divider(height: 1),
+
+                    SizedBox(
+                      height: 300,
+                      child: Scrollbar(
+                        controller: _scrollController,
+                        thumbVisibility: true,
+                        child: ListView(
+                          controller: _scrollController,
+                          padding: const EdgeInsets.all(16.0),
+                          children: [
+                            _buildListItem(
+                              title: 'Data View',
+                              status: '(Active)',
+                              statusColor: Colors.blue,
+                              data1: '55505.63',
+                              data2: '58805.63',
+                              iconPath: AppAssets.dataViewIcon,
+                              iconColor: Colors.blue.shade200,
+                            ),
+                            const SizedBox(height: 12),
+                            _buildListItem(
+                              title: 'Data Type 2',
+                              status: '(Active)',
+                              statusColor: Colors.blue,
+                              data1: '55505.63',
+                              data2: '58805.63',
+                              iconPath: AppAssets.dataType2Icon,
+                              iconColor: Colors.orange.shade200,
+                            ),
+                            const SizedBox(height: 12),
+                            _buildListItem(
+                              title: 'Data Type 3',
+                              status: '(Inactive)',
+                              statusColor: Colors.red,
+                              data1: '55505.63',
+                              data2: '58805.63',
+                              iconPath: AppAssets.dataType3Icon,
+                              iconColor: Colors.blue.shade200,
+                            ),
+                            const SizedBox(height: 12),
+                            _buildListItem(
+                              title: 'Data Type 4',
+                              status: '(Inactive)',
+                              statusColor: Colors.grey,
+                              data1: '0.00',
+                              data2: '0.00',
+                              iconPath: AppAssets.dataType3Icon,
+                              iconColor: Colors.grey.shade300,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Bottom Grid
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
-                childAspectRatio: 3, // Wide cards
+                childAspectRatio: 3,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
                 children: [
-                  _buildGridItem('Analysis Pro', Colors.purple),
-                  _buildGridItem('G. Generator', Colors.orange),
+                  _buildGridItem(
+                    'Analysis Pro',
+                    Colors.purple,
+                    AppAssets.analysisProIcon,
+                  ),
+                  _buildGridItem(
+                    'G. Generator',
+                    Colors.orange,
+                    AppAssets.gGeneratorIcon,
+                  ),
                   _buildGridItem(
                     'Plant Summery',
                     Colors.amber,
-                  ), // Typo in screenshot "Summery"
-                  _buildGridItem('Natural Gas', Colors.redAccent),
-                  _buildGridItem('D. Generator', Colors.brown),
-                  _buildGridItem('Water Process', Colors.cyan),
+                    AppAssets.plantSummaryIcon,
+                  ),
+                  _buildGridItem(
+                    'Natural Gas',
+                    Colors.redAccent,
+                    AppAssets.naturalGasIcon,
+                  ),
+                  _buildGridItem(
+                    'D. Generator',
+                    Colors.brown,
+                    AppAssets.dGeneratorIcon,
+                  ),
+                  _buildGridItem(
+                    'Water Process',
+                    Colors.cyan,
+                    AppAssets.waterProcessIcon,
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -301,9 +347,7 @@ class SecondPageScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFF0099FF) : Colors.transparent,
           borderRadius: isSelected
-              ? const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                ) // Only for first tab really
+              ? const BorderRadius.only(topLeft: Radius.circular(16))
               : null,
         ),
         child: Center(
@@ -325,6 +369,7 @@ class SecondPageScreen extends StatelessWidget {
     required Color statusColor,
     required String data1,
     required String data2,
+    required String iconPath,
     required Color iconColor,
   }) {
     return Container(
@@ -336,18 +381,15 @@ class SecondPageScreen extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Icon Placeholder
           Container(
             width: 40,
             height: 40,
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: iconColor,
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(
-              Icons.grid_view,
-              color: Colors.white,
-            ), // Generic placeholder
+            child: Image.asset(iconPath, height: 32, width: 32),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -360,8 +402,7 @@ class SecondPageScreen extends StatelessWidget {
                       width: 12,
                       height: 12,
                       decoration: BoxDecoration(
-                        color:
-                            iconColor, // Match icon color for the small square
+                        color: statusColor,
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),
@@ -402,7 +443,7 @@ class SecondPageScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGridItem(String title, Color color) {
+  Widget _buildGridItem(String title, Color color, String iconPath) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
@@ -415,11 +456,12 @@ class SecondPageScreen extends StatelessWidget {
           Container(
             width: 32,
             height: 32,
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.2),
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(Icons.bolt, color: color, size: 20), // Placeholder icon
+            child: Image.asset(iconPath, height: 32, width: 32),
           ),
           const SizedBox(width: 8),
           Expanded(
